@@ -71,9 +71,10 @@ public class MvnMenu
         StringBuilder result = new StringBuilder();
         System.out.println(Constant.SEPARATOR);
         System.out.println("命令执行中...");
+        BufferedReader br = null;
         try {
             Process exec = Runtime.getRuntime().exec(command);
-            BufferedReader br = new BufferedReader(new InputStreamReader(
+            br = new BufferedReader(new InputStreamReader(
                     exec.getInputStream()), 5120);
             String str = "";
             while ((str = br.readLine()) != null) {
@@ -84,6 +85,12 @@ public class MvnMenu
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (result.indexOf("BUILD SUCCESS") > -1) {
             System.out.println("\033[32m上传本地仓库成功！\033[0m");

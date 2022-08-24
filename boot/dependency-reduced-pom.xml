@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>mytools</artifactId>
     <groupId>com.rybt</groupId>
     <version>${tools.version}</version>
   </parent>
-
   <modelVersion>4.0.0</modelVersion>
-  <name>maven-tool</name>
-  <artifactId>maven-tool</artifactId>
-
+  <artifactId>boot</artifactId>
+  <name>boot</name>
   <build>
-    <finalName>maven-tool</finalName>
+    <finalName>boot</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
         <executions>
@@ -28,7 +22,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Main-Class>com.rybt.MvnMenu</Main-Class>
+              <Main-Class>com.rybt.Boot</Main-Class>
             </manifestEntries>
           </archive>
         </configuration>
@@ -36,3 +30,4 @@
     </plugins>
   </build>
 </project>
+
