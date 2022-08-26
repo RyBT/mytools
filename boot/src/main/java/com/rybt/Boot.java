@@ -58,9 +58,11 @@ public class Boot {
         Scanner scanner = new Scanner(System.in);
         System.out.print("请选择进程号：");
         String s = scanner.nextLine();
+        System.out.println("请输入dump的class：");
+        String clazzReg = scanner.nextLine();
         try {
             VirtualMachine attach = VirtualMachine.attach(s);
-            attach.loadAgent(ToolUtils.getJarPath() + "/class-tool.jar");
+            attach.loadAgent(ToolUtils.getJarPath() + "/class-tool.jar", clazzReg);
         } catch (AttachNotSupportedException e) {
             System.out.println("【ERROR】attach出现异常");
             e.printStackTrace();

@@ -21,11 +21,9 @@ public class Agent {
      * attach机制
      */
     public static void agentmain(String agentArg, Instrumentation inst) {
+        System.out.println("【INFO】jar包attach成功!");
         MyClassTransform transformer = new MyClassTransform(agentArg, inst);
         inst.addTransformer(transformer, true);
         transformer.retransform();
-    }
-
-    public static void main(String[] args) {
     }
 }

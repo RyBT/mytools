@@ -1,9 +1,7 @@
 package com.rybt.tools;
 
 import com.rybt.Boot;
-import com.rybt.constant.Constant;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
