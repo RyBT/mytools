@@ -11,4 +11,4 @@
 # how to use
 
 1. Configure the system environment of java.
-2. Run `java -jar boot.jar` and choose the tools accroding to the prompt.
+2. Run `java -jar boot.jar` and choose the tools accroding to the prompt. 
