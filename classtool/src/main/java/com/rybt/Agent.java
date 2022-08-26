@@ -5,8 +5,8 @@ import com.rybt.transform.MyClassTransform;
 import java.lang.instrument.Instrumentation;
 
 /**
- * Hello world!
- *
+ * agent入口
+ * @author Rybt
  */
 public class Agent {
 

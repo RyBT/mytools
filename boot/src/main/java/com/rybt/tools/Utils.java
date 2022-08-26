@@ -6,8 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 
-public class ToolUtils {
-
+public class Utils {
     public static String getJarPath(){
         URL localUrl = Boot.class.getProtectionDomain().getCodeSource().getLocation();
         String path = null;
@@ -20,5 +19,4 @@ public class ToolUtils {
         }
         return path.substring(1, path.lastIndexOf("/"));
     }
-
 }

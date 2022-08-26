@@ -39,30 +39,30 @@ public class MvnMenu
         System.out.println(Constant.SEPARATOR);
         System.out.println("参数校验中...");
         if (StringUtils.isEmpty(jarPath) || jarPath.indexOf(Constant.JAR_SUFFIX) == -1) {
-            System.out.println("\033[31m错误!jar包路径输入有误，请确认jar包路径!");
+            System.out.println("错误!jar包路径输入有误，请确认jar包路径!");
             return;
         }
         if (StringUtils.isEmpty(groupId)) {
-            System.out.println("\033[31m请输入groupId!");
+            System.out.println("请输入groupId!");
             return;
         }
         if (StringUtils.isEmpty(artifactId)) {
-            System.out.println("\033[31m请输入artifactId!");
+            System.out.println("请输入artifactId!");
             return;
         }
         if (StringUtils.isEmpty(version)) {
-            System.out.println("\033[31m请输入version!");
+            System.out.println("请输入version!");
             return;
         }
         if (StringUtils.isEmpty(packaging)) {
-            System.out.println("\033[31m请输入packaging!");
+            System.out.println("请输入packaging!");
             return;
         }
         if (!Constant.PACKAGE_TYPE.contains(packaging)) {
-            System.out.println("\033[31m请输入正确的packaging!(jar、war或pom)");
+            System.out.println("请输入正确的packaging!(jar、war或pom)");
             return;
         }
-        System.out.println("\033[32m参数校验通过!");
+        System.out.println("参数校验通过!");
         System.out.println(Constant.SEPARATOR);
         String command = String.format("%s mvn install:install-file -Dfile=%s -DgroupId=%s -DartifactId=%s -Dversion=%s -Dpackaging=%s",
                 osShell, jarPath, groupId, artifactId, version, packaging);
@@ -78,9 +78,6 @@ public class MvnMenu
                     exec.getInputStream()), 5120);
             String str = "";
             while ((str = br.readLine()) != null) {
-                if (str.indexOf("[ERROR]") > -1) {
-                    str = "\033[31m" + str + "\033[0m";
-                }
                 result.append(str + "\n\r");
             }
         } catch (IOException e) {
@@ -93,14 +90,14 @@ public class MvnMenu
             }
         }
         if (result.indexOf("BUILD SUCCESS") > -1) {
-            System.out.println("\033[32m上传本地仓库成功！\033[0m");
+            System.out.println("上传本地仓库成功！");
             System.out.println("<dependency>\n" +
                     "    <groupId>"+ groupId +"</groupId>\n" +
                     "    <artifactId>" + artifactId +"</artifactId>\n" +
                     "    <version>" + version + "</version>\n" +
                     "</dependency>");
         } else if (result.indexOf("BUILD FAILURE") > -1) {
-            System.out.println("\033[31m构建失败，详细信息如下：\033[0m\n" + result.substring(result.indexOf("[ERROR]", result.indexOf("[INFO] BUILD")) - 7));
+            System.out.println("构建失败，详细信息如下：" + result.substring(result.indexOf("[ERROR]", result.indexOf("[INFO] BUILD")) - 7));
         } else {
             System.err.println("未知错误");
         }

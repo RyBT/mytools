@@ -2,83 +2,58 @@ package com.rybt;
 
 
 import com.rybt.constant.Constant;
-import com.sun.tools.attach.*;
+import com.rybt.tools.ClassTool;
+import com.rybt.tools.MavenTool;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Scanner;
 
-import com.rybt.tools.ToolUtils;
-
 /**
- * Hello world!
- *
+ * 工具入口
+ * @author RyBT
  */
 public class Boot {
 
-    static{
-        System.loadLibrary("attach");
+    private static ClassTool classTool ;
+
+    private static MavenTool mavenTool ;
+
+    static {
+        classTool = new ClassTool();
+        mavenTool = new MavenTool();
     }
 
     public static void main( String[] args ) {
-        StringBuilder command = new StringBuilder();
-        if (Constant.OS_NAME.indexOf("windows") > -1) {
-            command.append("cmd.exe /c jps");
-        } else if (Constant.OS_NAME.indexOf("linux") > -1){
-            command.append("/bin/bash -c jps");
-        } else {
-            System.out.println("【ERROR】不兼容的操作系统版本");
-            return;
-        }
-        BufferedReader br = null;
-        StringBuilder result = new StringBuilder();
-        try {
-            Process exec = Runtime.getRuntime().exec(command.toString());
-            br = new BufferedReader(new InputStreamReader(
-                    exec.getInputStream()), 5120);
-            String str = "";
-            while ((str = br.readLine()) != null) {
-                result.append("  " + str + "\n\r");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        List<VirtualMachineDescriptor> list = VirtualMachine.list();
         System.out.println(Constant.SEPARATOR);
-        System.out.println("java进程列表：");
-        System.out.println(result);
+        System.out.println("【INFO】请选择使用的工具编号:");
+        System.out.println("【1】class tool");
+        System.out.println("【2】maven tool");
+        System.out.println("【0】退出");
         Scanner scanner = new Scanner(System.in);
-        System.out.print("请选择进程号：");
-        String s = scanner.nextLine();
-        System.out.println("请输入dump的class：");
-        String clazzReg = scanner.nextLine();
-        try {
-            VirtualMachine attach = VirtualMachine.attach(s);
-            attach.loadAgent(ToolUtils.getJarPath() + "/class-tool.jar", clazzReg);
-        } catch (AttachNotSupportedException e) {
-            System.out.println("【ERROR】attach出现异常");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (AgentLoadException e) {
-            System.out.println("【ERROR】load agent失败");
-            e.printStackTrace();
-        } catch (AgentInitializationException e) {
-            System.out.println("【ERROR】agent初始化失败");
-            e.printStackTrace();
+        int tool;
+        while((tool = scanner.nextInt()) > 0) {
+            switch(tool){
+                case 1:
+                    classTool();
+                    break;
+                case 2:
+                    mavenTool();
+                    break;
+                default:
+                    System.out.println("【ERROR】未知编号!");
+            }
+            if (tool == 0) {
+                break;
+            }
         }
 
         System.out.println(Constant.SEPARATOR);
     }
 
+    private static void mavenTool(){
 
+    }
 
+    private static void classTool(){
+
+    }
 }

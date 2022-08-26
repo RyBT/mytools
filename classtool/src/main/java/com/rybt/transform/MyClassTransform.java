@@ -1,6 +1,7 @@
 package com.rybt.transform;
 
 import com.rybt.Agent;
+import com.rybt.utils.FileUtils;
 
 import java.io.*;
 import java.lang.instrument.ClassFileTransformer;
@@ -11,7 +12,12 @@ import java.net.URLDecoder;
 import java.security.ProtectionDomain;
 import java.util.regex.Pattern;
 
+/**
+ * 自定义类转换器
+ * @author RyBT
+ */
 public class MyClassTransform implements ClassFileTransformer {
+
     private Instrumentation ins;
 
     private String regex;
@@ -39,28 +45,7 @@ public class MyClassTransform implements ClassFileTransformer {
         if (!Pattern.matches(regex, name)) {
             return classfileBuffer;
         }
-        String[] split = name.split("\\.");
-        StringBuilder path = new StringBuilder(jarPath);
-        for (int index = 0;index < split.length - 1;index ++)
-            path.append(split[index] + File.separator);
-        File dir = new File(path.toString());
-        dir.mkdirs();
-        path.append(split[split.length - 1] + ".class");
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(path.toString());
-            fileOutputStream.write(classfileBuffer);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        FileUtils.writeClassToFile(jarPath, name, classfileBuffer);
         return classfileBuffer;
     }
 
@@ -69,6 +54,7 @@ public class MyClassTransform implements ClassFileTransformer {
         for (Class clazz : allLoadedClasses) {
             if (Pattern.matches(regex, clazz.getName())) {
                 try {
+                    System.out.println(clazz.getName());
                     ins.retransformClasses(clazz);
                 } catch (Exception e) {
                     e.printStackTrace();
