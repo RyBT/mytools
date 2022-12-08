@@ -1,3 +1,5 @@
 .idea
 **/target/*
 *.class
+encode.txt
+deocde.class
