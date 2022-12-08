@@ -9,7 +9,6 @@
   <version>${tools.version}</version>
   <modules>
     <module>classtool</module>
-    <module>mvntool</module>
     <module>boot</module>
   </modules>
   <packaging>pom</packaging>
